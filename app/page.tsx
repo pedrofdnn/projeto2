@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
+import LoginPage from "./Pages/LoginPage";
 
 export default function App() {
   return (
     <div>
-      Igor voce e um nub
-      </div>
-  )
+      <LoginPage />
+    </div>
+  );
 }
