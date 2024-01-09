@@ -3,7 +3,7 @@ import LoginPage from "./Pages/LoginPage";
 
 export default function App() {
   return (
-    <div>
+    <div className="main-container">
       <LoginPage />
     </div>
   );

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-container {
+  background-color: #2f3e46;
+  min-height: 100vh;
+}
+
+.log-container {
+  background-color: #cad2c5;
+  position: relative;
+  top: 45px;
+}

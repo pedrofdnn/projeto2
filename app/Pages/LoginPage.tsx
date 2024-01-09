@@ -2,9 +2,9 @@ import React from "react";
 
 export default function LoginPage() {
   return (
-    <div>
+    <div className="log-container flex flex-row flex-wrap justify-evenly items-center content-center">
       <div>
-        <h1>Bem Vindo</h1>
+        <h1 className="">Bem Vindo</h1>
         <h4>Logue para ter acesso ao nosso acervo de filmes.</h4>
       </div>
 
@@ -15,6 +15,7 @@ export default function LoginPage() {
         <label>Senha: </label>
         <input type="password" />
         <button type="submit">Efetuar Login</button>
+        <button type="submit">Registre-se</button>
         <p>ou</p>
 
         <button>Login com Facebook</button>
