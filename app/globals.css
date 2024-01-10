@@ -30,7 +30,7 @@ body {
   background-color: #cad2c5;
   position: relative;
   top: 4vw;
-  margin: 0 300px;
+  margin: 0 16vw;
   height: 40vw;
   border-radius: 15px;
   box-shadow: 3px 3px 10px 0px rgba(132, 169, 140, 1);
@@ -38,11 +38,11 @@ body {
 .tirtle-login {
   height: 30vw;
   width: 26vw;
-  margin: 0 0 -28px;
+  margin-bottom: -28px;
 }
 
 .box-form {
-  margin: 0 0 180px;
+  margin-bottom: 12vw;
 }
 
 .container-login {
@@ -55,24 +55,27 @@ body {
   height: 40vw;
   margin: -1px;
   padding: 7vw;
-  right: -58px;
+  right: -3vw;
   border-radius: 0 15px 15px 0;
 }
 
 .input-login {
   border-radius: 6px;
-  padding: 3px;
+  padding: 6px;
 }
 
 .button-login {
+  font-size: 16px;
+  font-weight: bold;
   color: #cad2c5 !important;
   text-shadow: 1px 1px 0px #52796f;
   box-shadow: 1px 1px 1px #52796f;
-  padding: 10px 25px;
+  padding: 6px 25px;
   border-radius: 10px;
-  border: 2px solid #84a98c;
+  border: 2px solid #52796f;
   background: #2f3e46;
   background: linear-gradient(to top, #2f3e46, #567180);
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
 .button-login:hover {
