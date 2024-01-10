@@ -71,21 +71,26 @@ body {
 }
 
 .button-login {
-  font-size: 16px;
+  box-shadow: inset 0px 0px 14px -3px #f2fadc;
+  background: linear-gradient(to bottom, #dbe6c4 5%, #9ba892 100%);
+  background-color: #dbe6c4;
+  border-radius: 6px;
+  border: 1px solid #b2b8ad;
+  display: inline-block;
+  cursor: pointer;
+  color: #50574b;
+  font-family: Arial;
+  font-size: 15px;
   font-weight: bold;
-  color: #cad2c5 !important;
-  text-shadow: 1px 1px 0px #52796f;
-  box-shadow: 1px 1px 1px #52796f;
-  padding: 6px 25px;
-  border-radius: 10px;
-  border: 2px solid #52796f;
-  background: #2f3e46;
-  background: linear-gradient(to top, #2f3e46, #567180);
-  transition: background-color 0.1s ease, color 0.2s ease;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ced9bf;
 }
-
 .button-login:hover {
-  color: #2f3e46 !important;
-  background: #898f86;
-  background: linear-gradient(to top, #898f86, #eef7e8);
+  background: linear-gradient(to bottom, #9ba892 5%, #dbe6c4 100%);
+  background-color: #9ba892;
+}
+.button-login:active {
+  position: relative;
+  top: 1px;
 }
