@@ -20,7 +20,10 @@ export default function LoginPage() {
       </div>
 
       <div className="container-login">
-        <h1 className="lobster text-7xl m-[2rem] drop-shadow-lg">Loca Filmes</h1>
+        <h1 className="lobster text-7xl m-[2rem] drop-shadow-lg">
+          Loca Filmes
+        </h1>
+
         <form className="box-form flex flex-col flex-wrap justify-evenly">
           <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
             <label>Email: </label>
@@ -32,10 +35,14 @@ export default function LoginPage() {
             <input className="input-login" type="password" />
           </div>
 
-          <button type="submit">Efetuar Login</button>
-          <button type="submit">Registre-se</button>
+          <button className="button-login m-[5px]" type="submit">
+            LOGIN
+          </button>
+          <button className="button-login m-[5px]" type="submit">
+            REGISTRE-SE
+          </button>
 
-          <p>ou</p>
+          <p className="text-center ">ou</p>
 
           <button>Login com Facebook</button>
           <button>Login com Instagram</button>
