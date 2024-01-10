@@ -11,7 +11,7 @@ export default function LoginPage() {
         <Image
           src={img1}
           alt={"ícone do login"}
-          className="bg-icon1 bg-center bg-no-repeat"
+          className="img-login bg-icon1 bg-center bg-no-repeat "
         />
 
         <h2 className="flex flex-row-reverse ">

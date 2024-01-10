@@ -35,10 +35,16 @@ body {
   border-radius: 15px;
   box-shadow: 3px 3px 10px 0px rgba(132, 169, 140, 1);
 }
+
+.img-login {
+  width: 50rem;
+  margin: 25px;
+}
 .tirtle-login {
   height: 30vw;
   width: 26vw;
-  margin-bottom: -28px;
+  position: fixed;
+  left: 20vw;
 }
 
 .box-form {
@@ -51,11 +57,11 @@ body {
     #84a98c 28%,
     #52796f 78%
   );
-  position: relative;
+  position: fixed;
   height: 40vw;
   margin: -1px;
   padding: 7vw;
-  right: -3vw;
+  right: 16vw;
   border-radius: 0 15px 15px 0;
 }
 
