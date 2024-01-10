@@ -13,6 +13,9 @@
 .oxygen {
   font-family: var(--Oxygen);
 }
+.lobster {
+  font-family: var(--lobster);
+}
 body {
   font-family: "Robot";
 }
@@ -23,11 +26,11 @@ body {
 }
 
 /* tela de login */
-.log-container {
+.container-start {
   background-color: #cad2c5;
   position: relative;
   top: 4vw;
-  margin: 0 110px;
+  margin: 0 300px;
   height: 40vw;
   border-radius: 15px;
 }
@@ -36,4 +39,27 @@ body {
   height: 30vw;
   width: 26vw;
   margin: 0 0 -28px;
+}
+
+.box-form {
+  margin: 0 0 180px;
+}
+
+.container-login {
+  background: radial-gradient(
+    ellipse farthest-corner at center center,
+    #84a98c 28%,
+    #52796f 78%
+  );
+  position: relative;
+  height: 40vw;
+  margin: -1px;
+  padding: 7vw;
+  right: -58px;
+  border-radius: 0 15px 15px 0;
+}
+
+.input-login {
+  border-radius: 6px;
+  padding: 3px;
 }

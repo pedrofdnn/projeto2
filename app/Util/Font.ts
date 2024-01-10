@@ -1,4 +1,4 @@
-import { Oxygen, Roboto } from "next/font/google";
+import { Lobster, Oxygen, Roboto } from "next/font/google";
 
 export const oxygen = Oxygen({
   subsets: ["latin"],
@@ -12,6 +12,13 @@ export const roboto = Roboto({
   style: ["normal"],
   variable: "--roboto",
 });
+export const lobster = Lobster({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal"],
+  variable: "--lobster",
+});
 
 export const oxy = oxygen.variable;
 export const robot = roboto.variable;
+export const lobste = lobster.variable;

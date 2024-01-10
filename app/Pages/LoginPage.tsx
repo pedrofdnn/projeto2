@@ -4,7 +4,7 @@ import img1 from "../Assets/icon1.png";
 
 export default function LoginPage() {
   return (
-    <div className="log-container flex flex-row flex-wrap justify-evenly items-center content-center">
+    <div className="container-start flex flex-row flex-wrap justify-evenly items-center content-center">
       <div className="oxygen font-bold tirtle-login flex flex-col">
         <h1 className="tirtle-login text-4xl ">Bem Vindo</h1>
 
@@ -14,25 +14,33 @@ export default function LoginPage() {
           className="bg-icon1 bg-center bg-no-repeat"
         />
 
-        <h2 className="flex flex-row-reverse text-xl">
+        <h2 className="flex flex-row-reverse ">
           Logue para ter acesso ao nosso acervo de filmes.
         </h2>
       </div>
 
-      <form>
-        <h1>Loca Filmes</h1>
-        <label>Email: </label>
-        <input type="text" />
+      <div className="container-login">
+        <h1 className="lobster text-7xl m-[2rem] drop-shadow-lg">Loca Filmes</h1>
+        <form className="box-form flex flex-col flex-wrap justify-evenly">
+          <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
+            <label>Email: </label>
+            <input className="input-login" type="text" />
+          </div>
 
-        <label>Senha: </label>
-        <input type="password" />
-        <button type="submit">Efetuar Login</button>
-        <button type="submit">Registre-se</button>
-        <p>ou</p>
+          <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
+            <label>Senha: </label>
+            <input className="input-login" type="password" />
+          </div>
 
-        <button>Login com Facebook</button>
-        <button>Login com Instagram</button>
-      </form>
+          <button type="submit">Efetuar Login</button>
+          <button type="submit">Registre-se</button>
+
+          <p>ou</p>
+
+          <button>Login com Facebook</button>
+          <button>Login com Instagram</button>
+        </form>
+      </div>
     </div>
   );
 }

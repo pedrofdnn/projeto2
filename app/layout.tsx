@@ -1,6 +1,6 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { oxy, robot } from "./Util/Font";
+import { lobste, oxy, robot } from "./Util/Font";
 
 export const metadata = {
   title: "Loca Filmes",
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${robot} ${oxy}`}>{children}</body>
+      <body className={`${robot} ${oxy} ${lobste}`}>{children}</body>
     </html>
   );
 }
