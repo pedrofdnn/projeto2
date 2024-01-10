@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import img1 from "../Assets/icon1.png";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 export default function LoginPage() {
   return (
@@ -44,8 +45,10 @@ export default function LoginPage() {
 
           <p className="text-center ">ou</p>
 
-          <button>Login com Facebook</button>
-          <button>Login com Instagram</button>
+          <div className="flex flex-wrap justify-around items-stretch ">
+            <button >Facebook</button>
+            <button>Instagram</button>
+          </div>
         </form>
       </div>
     </div>
