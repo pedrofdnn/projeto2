@@ -31,6 +31,7 @@ export default function LoginPage() {
           <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
             <TextField
               label="Email"
+              className="rounded-t-md rounded-tr-md"
               id="filled-basic"
               variant="filled"
               style={{ backgroundColor: "#CAD2C5 " }}
@@ -42,6 +43,7 @@ export default function LoginPage() {
           <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
             <TextField
               label="Senha"
+              className="rounded-t-md rounded-tr-md"
               id="filled-basic"
               variant="filled"
               style={{ backgroundColor: "#CAD2C5 " }}
