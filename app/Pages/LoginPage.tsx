@@ -1,11 +1,33 @@
-import React from "react";
+/* use client */
+import { useState } from "react";
 import Image from "next/image";
 import img1 from "../Assets/icon1.png";
-import { Button, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FilledInput,
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  TextField,
+} from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="container-start flex flex-row flex-wrap justify-evenly items-center content-center">
       <div className="oxygen font-bold tirtle-login flex flex-col">
@@ -29,19 +51,62 @@ export default function LoginPage() {
 
         <form className="box-form flex flex-col flex-wrap justify-evenly">
           <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
-            <TextField
-              label="Email"
-              className="rounded-t-md rounded-tr-md"
-              id="filled-basic"
-              variant="filled"
-              style={{ backgroundColor: "#CAD2C5 " }}
-              color="success"
-              type="email"
-            />
+            <Box
+              className="rounded-md p-1"
+              sx={{
+                display: "flex",
+                alignItems: "flex-end",
+                backgroundColor: "#CAD2C5 ",
+              }}
+            >
+              <AccountCircle sx={{ color: "action.active", mr: 1, my: 1 }} />
+
+              <TextField
+                sx={{ fontSize: 28, width: 305 }}
+                id="input-with-sx"
+                label="Usuário"
+                variant="standard"
+                color="success"
+                type="email"
+              />
+            </Box>
           </div>
 
           <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
-            <TextField
+            <Box
+              className="rounded-md p-1"
+              sx={{
+                backgroundColor: "#CAD2C5 ",
+              }}
+            >
+              <FormControl
+                sx={{ width: "34ch", marginLeft: 4 }}
+                variant="standard"
+                color="success"
+              >
+                <InputLabel htmlFor="standard-adornment-password">
+                  Senha
+                </InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        sx={{ mr: -5, my: 1 }}
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </Box>
+
+            {/* <TextField
               label="Senha"
               className="rounded-t-md rounded-tr-md"
               id="filled-basic"
@@ -49,7 +114,7 @@ export default function LoginPage() {
               style={{ backgroundColor: "#CAD2C5 " }}
               color="success"
               type="password"
-            />
+            /> */}
           </div>
 
           <br />
@@ -73,8 +138,8 @@ export default function LoginPage() {
             </Button>
           </div>
 
-          <div className="my-2">
-            <div className="stripe-left"></div>
+          <div className=" container-stipe my-1">
+            <div className="stripe-left text-center"></div>
             <div className="m-[1em] text-center ">ou</div>
             <div className="stripe-right"></div>
           </div>
