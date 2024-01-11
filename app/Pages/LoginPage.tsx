@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import img1 from "../Assets/icon1.png";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 
@@ -29,13 +29,25 @@ export default function LoginPage() {
 
         <form className="box-form flex flex-col flex-wrap justify-evenly">
           <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
-            <label>Email: </label>
-            <input className="input-login" type="text" />
+            <TextField
+              label="Email"
+              id="filled-basic"
+              variant="filled"
+              style={{ backgroundColor: "#CAD2C5 " }}
+              color="success"
+              type="email"
+            />
           </div>
 
           <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
-            <label>Senha: </label>
-            <input className="input-login" type="password" />
+            <TextField
+              label="Senha"
+              id="filled-basic"
+              variant="filled"
+              style={{ backgroundColor: "#CAD2C5 " }}
+              color="success"
+              type="password"
+            />
           </div>
 
           <br />

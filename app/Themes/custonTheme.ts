@@ -20,5 +20,11 @@ export const custonTheme = createTheme({
       dark: "#2F3E46",
       contrastText: "#fff",
     },
+    info: {
+      main: "#1b2021",
+      light: "#84A98C",
+      dark: "#30343f",
+      contrastText: "#fff",
+    },
   },
 });
