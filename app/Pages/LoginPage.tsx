@@ -3,11 +3,11 @@ import { useState } from "react";
 import Image from "next/image";
 import img1 from "../Assets/icon1.png";
 import LoginForm from "../Components/LoginForm";
+import "../Styles/LoginPage.css";
 
 export default function LoginPage({}) {
   return (
     <div className="container-start flex flex-row flex-wrap justify-evenly items-center content-center">
-      
       <div className="oxygen font-bold tirtle-login flex flex-col">
         <h1 className="tirtle-login text-4xl ">Bem Vindo</h1>
 
