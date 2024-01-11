@@ -1,7 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import img1 from "../Assets/icon1.png";
+import { ThemeProvider, Button } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function LoginPage() {
   return (
@@ -46,7 +49,14 @@ export default function LoginPage() {
           <p className="text-center ">ou</p>
 
           <div className="flex flex-wrap justify-around items-stretch ">
-            <button >Facebook</button>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<FacebookIcon />}
+            >
+              Facebook
+            </Button>
+
             <button>Instagram</button>
           </div>
         </form>

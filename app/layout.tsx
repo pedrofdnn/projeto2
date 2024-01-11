@@ -1,3 +1,4 @@
+import ThemeRegistry from "./Components/ThemeRegistry";
 import "./globals.css";
 import { lobste, oxy, robot } from "./Util/Font";
 
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${robot} ${oxy} ${lobste}`}>{children}</body>
+      <ThemeRegistry>
+        <body className={`${robot} ${oxy} ${lobste}`}>{children}</body>
+      </ThemeRegistry>
     </html>
   );
 }
