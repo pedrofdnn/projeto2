@@ -90,7 +90,7 @@ body {
   width: 127px;
   height: 1px;
   position: fixed;
-  top: 69vh;
+  top: 70vh;
   left: 125vh;
 }
 .stripe-right {
@@ -98,6 +98,6 @@ body {
   width: 127px;
   height: 1px;
   position: fixed;
-  top: 69vh;
+  top: 70vh;
   left: 143vh;
 }

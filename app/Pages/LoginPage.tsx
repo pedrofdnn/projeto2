@@ -75,7 +75,7 @@ export default function LoginPage() {
 
           <div className="my-2">
             <div className="stripe-left"></div>
-            <div className="text-center ">ou</div>
+            <div className="m-[1em] text-center ">ou</div>
             <div className="stripe-right"></div>
           </div>
 
