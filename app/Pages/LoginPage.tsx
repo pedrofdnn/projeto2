@@ -1,10 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import img1 from "../Assets/icon1.png";
-import { ThemeProvider, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
-
-import DeleteIcon from "@mui/icons-material/Delete";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 export default function LoginPage() {
   return (
@@ -39,17 +38,36 @@ export default function LoginPage() {
             <input className="input-login" type="password" />
           </div>
 
-          <button className="button-login m-[5px]" type="submit">
-            LOGIN
-          </button>
-          <button className="button-login m-[5px]" type="submit">
-            REGISTRE-SE
-          </button>
+          <br />
+          <div className="flex flex-col mx-2 items-stretch">
+            <Button
+              className="button-login mx-4"
+              variant="contained"
+              color="success"
+              type="submit"
+            >
+              LOGIN
+            </Button>
+            <br />
+            <Button
+              className="button-login"
+              variant="contained"
+              color="success"
+              type="submit"
+            >
+              REGISTRE-SE
+            </Button>
+          </div>
 
-          <p className="text-center ">ou</p>
+          <div className="my-2">
+            <div className="stripe-left"></div>
+            <div className="text-center ">ou</div>
+            <div className="stripe-right"></div>
+          </div>
 
           <div className="flex flex-wrap justify-around items-stretch ">
             <Button
+              className="button-login"
               variant="contained"
               color="primary"
               startIcon={<FacebookIcon />}
@@ -57,7 +75,14 @@ export default function LoginPage() {
               Facebook
             </Button>
 
-            <button>Instagram</button>
+            <Button
+              className="button-login"
+              variant="contained"
+              color="secondary"
+              startIcon={<InstagramIcon />}
+            >
+              Instagram
+            </Button>
           </div>
         </form>
       </div>

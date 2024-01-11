@@ -9,7 +9,16 @@ export const custonTheme = createTheme({
       contrastText: "#fff",
     },
     secondary: {
-      main: "#FF4081",
+      main: "#BC2A8D",
+      light: "#4c68d7",
+      dark: "#cd486b",
+      contrastText: "#fff",
+    },
+    success: {
+      main: "#354F52",
+      light: "#84A98C",
+      dark: "#2F3E46",
+      contrastText: "#fff",
     },
   },
 });
