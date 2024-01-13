@@ -99,7 +99,8 @@ export default function LoginForm() {
             className="button-login mx-4"
             variant="contained"
             color="success"
-            type="submit"
+            type="button"
+            onClick={() => router.push("/HomePage")}
           >
             LOGIN
           </Button>
@@ -108,8 +109,8 @@ export default function LoginForm() {
             className="button-login"
             variant="contained"
             color="success"
-            type="submit"
-            onClick={() => router.push("/creatUser")}
+            type="button"
+            onClick={() => router.push("/CreatUser")}
           >
             REGISTRE-SE
           </Button>

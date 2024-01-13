@@ -1,4 +1,4 @@
-/* use client */
+"use client";
 import Image from "next/image";
 import img1 from "../Assets/icon1.png";
 import LoginForm from "../Components/LoginForm";

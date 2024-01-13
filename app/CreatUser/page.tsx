@@ -1,7 +1,11 @@
-import React from 'react'
+import React from "react";
+import Link from "next/link";
 
-export default function creatUser() {
+export default function CreatUser() {
   return (
-    <div>CreatUser</div>
-  )
+    <div>
+      <h1>Criar usuários</h1>
+      <Link href="/LoginPage">Dashboard</Link>
+    </div>
+  );
 }
