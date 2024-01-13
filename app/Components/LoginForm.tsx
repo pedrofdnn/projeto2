@@ -12,6 +12,7 @@ import {
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 interface LoginFormProps {
   showPassword: boolean;
@@ -21,6 +22,8 @@ interface LoginFormProps {
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const router = useRouter();
 
   //   função de ocultar a senha
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -106,6 +109,7 @@ export default function LoginForm() {
             variant="contained"
             color="success"
             type="submit"
+            onClick={() => router.push("/creatUser")}
           >
             REGISTRE-SE
           </Button>
