@@ -12,7 +12,7 @@ import {
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
-import { useRouter } from "next/navigation";
+import UserForm from "./UserForm";
 
 interface LoginFormProps {
   showPassword: boolean;
@@ -22,8 +22,6 @@ interface LoginFormProps {
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-
-  const router = useRouter();
 
   //   função de ocultar a senha
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -94,27 +92,8 @@ export default function LoginForm() {
         </div>
 
         <br />
-        <div className="flex flex-col mx-2 items-stretch">
-          <Button
-            className="button-login mx-4"
-            variant="contained"
-            color="success"
-            type="button"
-            onClick={() => router.push("/HomePage")}
-          >
-            LOGIN
-          </Button>
-          <br />
-          <Button
-            className="button-login"
-            variant="contained"
-            color="success"
-            type="button"
-            onClick={() => router.push("/CreatUser")}
-          >
-            REGISTRE-SE
-          </Button>
-        </div>
+
+        <UserForm />
 
         <div className=" container-stipe my-1">
           <div className="stripe-left text-center"></div>
