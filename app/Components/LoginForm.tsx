@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -12,16 +12,42 @@ import {
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
-import UserForm from "./UserForm";
+import { useRouter } from "next/navigation";
 
-interface LoginFormProps {
-  showPassword: boolean;
-  handleClickShowPassword: () => void;
-  handleMouseDownPassword: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
+// interface LoginFormProps {
+//   showPassword: boolean;
+//   handleClickShowPassword: () => void;
+//   handleMouseDownPassword: (event: React.MouseEvent<HTMLButtonElement>) => void;
+// }
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [storedName, setStoredName] = useState("");
+  const [name, setName] = useState("");
+  const router = useRouter();
+
+  // Função para lidar com a mudança no input
+  const handleNameChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setName(e.target.value);
+  };
+
+  // Função para lidar com o envio do formulário
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    // Armazenar o nome no localStorage
+    localStorage.setItem("user_name", name);
+  };
+
+  // Efeito para carregar o nome armazenado no localStorage quando a página é carregada
+  useEffect(() => {
+    const storedUserName = localStorage.getItem("user_name");
+    if (storedUserName) {
+      setStoredName(storedUserName);
+    }
+  }, []);
 
   //   função de ocultar a senha
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -31,9 +57,21 @@ export default function LoginForm() {
     event.preventDefault();
   };
 
+  const handleLogin = () => {
+    // Verificar se o nome está presente antes de permitir a navegação
+    if (storedName) {
+      router.push("/HomePage");
+    } else {
+      alert("Por favor, faça login para acessar a HomePage.");
+    }
+  };
+
   return (
     <div>
-      <form className="box-form flex flex-col flex-wrap justify-evenly">
+      <form
+        onSubmit={handleSubmit}
+        className="box-form flex flex-col flex-wrap justify-evenly"
+      >
         <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
           <Box
             className="rounded-md p-1"
@@ -93,7 +131,27 @@ export default function LoginForm() {
 
         <br />
 
-        <UserForm />
+        <div className="flex flex-col mx-2 items-stretch">
+          <Button
+            className="button-login mx-4"
+            variant="contained"
+            color="success"
+            type="button"
+            onClick={handleLogin}
+          >
+            LOGIN
+          </Button>
+          <br />
+          <Button
+            className="button-login"
+            variant="contained"
+            color="success"
+            type="button"
+            onClick={() => router.push("/CreatUser")}
+          >
+            REGISTRE-SE
+          </Button>
+        </div>
 
         <div className=" container-stipe my-1">
           <div className="stripe-left text-center"></div>
