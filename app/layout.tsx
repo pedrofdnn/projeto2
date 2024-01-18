@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <ThemeRegistry>
-        <body className={`${robot} ${oxy} ${lobste}`}>{children}</body>
+        <body className={`${robot} ${oxy} ${lobste} `}>{children}</body>
       </ThemeRegistry>
     </html>
   );
