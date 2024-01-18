@@ -1,6 +1,6 @@
 import ThemeRegistry from "./Components/ThemeRegistry";
-import "./globals.css";
 import { lobste, oxy, robot } from "./Util/Font";
+import "./globals.css";
 
 export const metadata = {
   title: "Loca Filmes",
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-br">
       <ThemeRegistry>
         <body className={`${robot} ${oxy} ${lobste}`}>{children}</body>
       </ThemeRegistry>

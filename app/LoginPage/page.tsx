@@ -13,6 +13,9 @@ export default function LoginPage({}) {
         <Image
           src={img1}
           alt={"ícone do login"}
+          width={550}
+          height={550}
+          priority
           className="img-login bg-icon1 bg-center bg-no-repeat"
         />
 

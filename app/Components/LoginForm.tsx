@@ -59,10 +59,27 @@ export default function LoginForm() {
 
   const handleLogin = () => {
     // Verificar se o nome está presente antes de permitir a navegação
-    if (storedName) {
-      router.push("/HomePage");
+    if (name.trim() !== "") {
+      // Verificar se o usuário existe no localStorage
+      const storedUserName = localStorage.getItem("user_name");
+
+      if (storedUserName && storedUserName === name) {
+        // O usuário existe, fazer a navegação
+        router.push("/HomePage");
+      } else {
+        // O usuário não existe, solicitar cadastro
+        const shouldCreateAccount = window.confirm(
+          "Usuário não encontrado. Deseja criar uma conta?"
+        );
+
+        if (shouldCreateAccount) {
+          // Aqui você pode redirecionar para a página de criação de conta
+          router.push("/CreatUser");
+        }
+      }
     } else {
-      alert("Por favor, faça login para acessar a HomePage.");
+      // Informar ao usuário que o campo está em branco
+      alert("Por favor, insira seu nome para fazer login.");
     }
   };
 
