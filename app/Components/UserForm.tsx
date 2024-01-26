@@ -3,24 +3,28 @@ import React from "react";
 
 export default function UserForm() {
   return (
-    <div>
-      <form className="">
-        <Box
-        
-          <TextField id="outlined-basic" label="Nome" variant="outlined" />
-        </Box>
-
-        <Box>
-          <TextField
-            sx={{ fontSize: 28, width: 305 }}
-            id="input-with-sx"
-            label="Usuário"
-            variant="standard"
-            color="success"
-            type="email"
-          />
-        </Box>
-      </form>
-    </div>
+    <form className="flex flex-col ">
+      <Box>
+        <TextField
+          sx={{ fontSize: 28, width: 310, textAlign: "center" }}
+          id="input-with-sx"
+          label="Usuário:"
+          variant="standard"
+          color="success"
+          type="text"
+        />
+      </Box>
+      <br />
+      <Box>
+        <TextField
+          sx={{ fontSize: 28, width: 310 }}
+          id="input-with-sx"
+          label="Email:"
+          variant="standard"
+          color="success"
+          type="email"
+        />
+      </Box>
+    </form>
   );
 }

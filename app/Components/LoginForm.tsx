@@ -86,7 +86,7 @@ export default function LoginForm() {
   return (
     <div>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleLogin}
         className="box-form flex flex-col flex-wrap justify-evenly"
       >
         <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
@@ -147,7 +147,8 @@ export default function LoginForm() {
         </div>
 
         <br />
-
+        
+        {/* botões de login e cadastro */}
         <div className="flex flex-col mx-2 items-stretch">
           <Button
             className="button-login mx-4"
@@ -170,12 +171,14 @@ export default function LoginForm() {
           </Button>
         </div>
 
+        {/* separadores */}
         <div className=" container-stipe my-1">
           <div className="stripe-left text-center"></div>
           <div className="m-[1em] text-center ">ou</div>
           <div className="stripe-right"></div>
         </div>
 
+        {/* botões de rede sociais */}
         <div className="flex flex-wrap justify-around items-stretch ">
           <Button
             className="button-login"
