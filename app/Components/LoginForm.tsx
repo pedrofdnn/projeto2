@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import {
   Box,
@@ -147,7 +148,7 @@ export default function LoginForm() {
         </div>
 
         <br />
-        
+
         {/* botões de login e cadastro */}
         <div className="flex flex-col mx-2 items-stretch">
           <Button
