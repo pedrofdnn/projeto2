@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
+  Button,
   FormControl,
   IconButton,
   Input,
@@ -70,6 +71,24 @@ export default function UserForm() {
           />
         </FormControl>
       </Box>
+      <br />
+      <Button
+        className="button-login mx-4"
+        variant="contained"
+        color="success"
+        type="button"
+      >
+        CADASTRAR
+      </Button>
+      <br />
+      <Button
+        className="button-login mx-4"
+        variant="contained"
+        color="success"
+        type="button"
+      >
+        vOLTAR
+      </Button>
     </form>
   );
 }
