@@ -11,9 +11,12 @@ import {
   InputLabel,
   TextField,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 export default function UserForm() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const router = useRouter();
 
   //   função de ocultar a senha
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -86,6 +89,7 @@ export default function UserForm() {
         variant="contained"
         color="success"
         type="button"
+        onClick={() => router.push("/")}
       >
         vOLTAR
       </Button>
