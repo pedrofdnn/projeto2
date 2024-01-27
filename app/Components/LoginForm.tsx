@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
   Box,
@@ -15,40 +14,29 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 
-// interface LoginFormProps {
-//   showPassword: boolean;
-//   handleClickShowPassword: () => void;
-//   handleMouseDownPassword: (event: React.MouseEvent<HTMLButtonElement>) => void;
-// }
-
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [storedName, setStoredName] = useState("");
   const [name, setName] = useState("");
   const router = useRouter();
 
+  // Efeito para carregar o nome armazenado no localStorage quando a página é carregada
+  useEffect(() => {
+    // Verificar se há um nome de usuário armazenado no localStorage
+    const storedUserName = localStorage.getItem("user_name");
+    if (storedUserName) {
+    }
+  }, []);
+
   // Função para lidar com a mudança no input
-  const handleNameChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
   // Função para lidar com o envio do formulário
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Armazenar o nome no localStorage
-    localStorage.setItem("user_name", name);
+    handleLogin();
   };
-
-  // Efeito para carregar o nome armazenado no localStorage quando a página é carregada
-  useEffect(() => {
-    const storedUserName = localStorage.getItem("user_name");
-    if (storedUserName) {
-      setStoredName(storedUserName);
-    }
-  }, []);
 
   //   função de ocultar a senha
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -58,36 +46,31 @@ export default function LoginForm() {
     event.preventDefault();
   };
 
+  // Verificar se o usuário existe no localStorage
   const handleLogin = () => {
-    // Verificar se o nome está presente antes de permitir a navegação
-    if (name.trim() !== "") {
-      // Verificar se o usuário existe no localStorage
-      const storedUserName = localStorage.getItem("user_name");
-
-      if (storedUserName && storedUserName === name) {
-        // O usuário existe, fazer a navegação
-        router.push("/HomePage");
-      } else {
-        // O usuário não existe, solicitar cadastro
-        const shouldCreateAccount = window.confirm(
-          "Usuário não encontrado. Deseja criar uma conta?"
-        );
-
-        if (shouldCreateAccount) {
-          // Aqui você pode redirecionar para a página de criação de conta
-          router.push("/CreatUser");
-        }
-      }
-    } else {
-      // Informar ao usuário que o campo está em branco
+    if (name.trim() === "") {
       alert("Por favor, insira seu nome para fazer login.");
+      return;
+    }
+
+    const storedUserName = localStorage.getItem("user_name");
+    if (storedUserName && storedUserName.toLowerCase() === name.toLowerCase()) {
+      router.replace("/HomePage");
+    } else {
+      const shouldCreateAccount = window.confirm(
+        "Usuário não encontrado. Deseja criar uma conta?"
+      );
+
+      if (shouldCreateAccount) {
+        router.push("/CreatUser");
+      }
     }
   };
 
   return (
     <div>
       <form
-        onSubmit={handleLogin}
+        onSubmit={handleSubmit}
         className="box-form flex flex-col flex-wrap justify-evenly"
       >
         <div className="flex flex-col flex-wrap justify-evenly m-[5px]">
@@ -108,6 +91,8 @@ export default function LoginForm() {
               variant="standard"
               color="success"
               type="email"
+              value={name}
+              onChange={handleNameChange}
             />
           </Box>
         </div>
