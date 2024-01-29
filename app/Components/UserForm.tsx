@@ -15,8 +15,26 @@ import { useRouter } from "next/navigation";
 
 export default function UserForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
+  // configuração de rota
   const router = useRouter();
+
+  // captura as informações do input.
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  // Armazenar os dados no localStorage
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    localStorage.setItem("userData", JSON.stringify(userData));
+  };
 
   //   função de ocultar a senha
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -27,25 +45,31 @@ export default function UserForm() {
   };
 
   return (
-    <form className="flex flex-col p-28  ">
+    <form className="flex flex-col p-28" onSubmit={handleSubmit}>
       <Box>
         <TextField
           sx={{ fontSize: 28, width: 310 }}
-          id="input-with-sx"
+          id="input-name"
+          type="text"
           label="Nome:"
           variant="standard"
           color="success"
-          type="text"
+          name="username"
+          value={userData.username}
+          onChange={handleInputChange}
         />
       </Box>
       <br />
       <TextField
         sx={{ fontSize: 28, width: 310 }}
-        id="input-with-sx"
+        id="input-email"
         label="Email:"
         variant="standard"
         color="success"
         type="email"
+        name="email"
+        value={userData.email}
+        onChange={handleInputChange}
       />
       <br />
       <Box
@@ -59,6 +83,9 @@ export default function UserForm() {
           <Input
             id="standard-adornment-password"
             type={showPassword ? "text" : "password"}
+            name="password"
+            value={userData.password}
+            onChange={handleInputChange}
             endAdornment={
               <InputAdornment position="start">
                 <IconButton
@@ -79,7 +106,7 @@ export default function UserForm() {
         className="button-login mx-4"
         variant="contained"
         color="success"
-        type="button"
+        type="submit"
       >
         CADASTRAR
       </Button>
