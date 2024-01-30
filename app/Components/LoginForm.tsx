@@ -14,22 +14,34 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 
+interface UserData {
+  username: string;
+  email: string;
+  password: string;
+}
+
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   // Efeito para carregar o nome armazenado no localStorage quando a página é carregada
   useEffect(() => {
-    // Verificar se há um nome de usuário armazenado no localStorage
     const storedUserName = localStorage.getItem("user_name");
     if (storedUserName) {
+      setName(storedUserName);
     }
   }, []);
 
   // Função para lidar com a mudança no input
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
+  };
+
+  // //ele checa a mudança de senha quando acontece.
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   };
 
   // Função para lidar com o envio do formulário
@@ -45,24 +57,26 @@ export default function LoginForm() {
   ) => {
     event.preventDefault();
   };
-
-  // Verificar se o usuário existe no localStorage
+  // verifica se o usuário digitou ou não os dados.
   const handleLogin = () => {
-    if (name.trim() === "") {
+    if (!name.trim()) {
       alert("Por favor, insira seu nome para fazer login.");
       return;
     }
 
-    const storedUserName = localStorage.getItem("user_name");
-    if (storedUserName && storedUserName.toLowerCase() === name.toLowerCase()) {
-      router.replace("/HomePage");
-    } else {
-      const shouldCreateAccount = window.confirm(
-        "Usuário não encontrado. Deseja criar uma conta?"
-      );
-
-      if (shouldCreateAccount) {
-        router.push("/CreatUser");
+    // Verificar se o usuário existe no localStorage
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const userData: UserData = JSON.parse(storedUserData);
+      if (userData.email.toLowerCase() === name.toLowerCase()) {
+        router.replace("/HomePage");
+      } else {
+        const shouldCreateAccount = window.confirm(
+          "Usuário não encontrado. Deseja criar uma conta?"
+        );
+        if (shouldCreateAccount) {
+          router.push("/CreatUser");
+        }
       }
     }
   };
@@ -115,6 +129,8 @@ export default function LoginForm() {
               <Input
                 id="standard-adornment-password"
                 type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={handlePasswordChange}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -140,8 +156,7 @@ export default function LoginForm() {
             className="button-login mx-4"
             variant="contained"
             color="success"
-            type="button"
-            onClick={handleLogin}
+            type="submit"
           >
             LOGIN
           </Button>
