@@ -58,6 +58,7 @@ export default function LoginForm() {
     setOpen(true);
   };
 
+  //  função de fechamento automático do alerta
   const handleClose = (
     _event?: React.SyntheticEvent | Event,
     reason?: string

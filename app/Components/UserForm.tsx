@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -22,8 +23,9 @@ interface UserData {
 
 export default function UserForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showSuccessMessage] = useState(false);
+  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
+  const [open, setOpen] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -51,19 +53,42 @@ export default function UserForm() {
         (user) => user.email.toLowerCase() === userData.email.toLowerCase()
       );
       if (emailExists) {
-        // Mostrar mensagem de erro ou alerta informando que o email já está cadastrado
+        setOpenErrorSnackbar(true);
         return;
       }
     }
-
     // Adicionar novo usuário ao localStorage
     let updatedData = storedData ? JSON.parse(storedData) : [];
     updatedData.push(userData);
     localStorage.setItem("userData", JSON.stringify(updatedData));
-
-    setOpenSnackbar(true);
-    setTimeout(() => setOpenSnackbar(false), 6000); // Fecha o Snackbar após 6 segundos
     router.push("/?success=true");
+  };
+  
+  // ativa a função de alerta
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  //  função de fechamento automático do alerta
+  const handleClose = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  // função para fechar a mensagem de erro
+  const handleCloseErrorSnackbar = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenErrorSnackbar(false);
   };
 
   //   função de ocultar a senha
@@ -74,28 +99,25 @@ export default function UserForm() {
     event.preventDefault();
   };
 
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
-
   return (
     <form className="flex flex-col p-28" onSubmit={handleSubmit}>
       {showSuccessMessage && (
         <div className="success-message">Usuário cadastrado com sucesso!</div>
       )}
-      <Box>
-        <TextField
-          sx={{ fontSize: 28, width: 310 }}
-          id="input-name"
-          type="text"
-          label="Nome:"
-          variant="standard"
-          color="success"
-          name="username"
-          value={userData.username}
-          onChange={handleInputChange}
-        />
-      </Box>
+
+      <TextField
+        sx={{ fontSize: 28, width: 310 }}
+        id="input-name"
+        type="text"
+        label="Nome:"
+        variant="standard"
+        color="success"
+        name="username"
+        value={userData.username}
+        onChange={handleInputChange}
+        required
+      />
+
       <br />
       <TextField
         sx={{ fontSize: 28, width: 310 }}
@@ -107,6 +129,7 @@ export default function UserForm() {
         name="email"
         value={userData.email}
         onChange={handleInputChange}
+        required
       />
       <br />
       <Box
@@ -144,9 +167,43 @@ export default function UserForm() {
         variant="contained"
         color="success"
         type="submit"
+        onClick={handleClick}
       >
         CADASTRAR
       </Button>
+      {/* mensagem de sucesso */}
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%", background: "#388e3c" }}
+        >
+          Cadastrado Realizado com Sucesso.
+        </Alert>
+      </Snackbar>
+      {/* mensagem de error */}
+      <Snackbar
+        open={openErrorSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseErrorSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseErrorSnackbar}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%", background: "#f44336" }}
+        >
+          Email já cadastrado. Por favor, insira um email diferente.
+        </Alert>
+      </Snackbar>
+
       <br />
       <Button
         className="button-login mx-4"
@@ -157,12 +214,6 @@ export default function UserForm() {
       >
         vOLTAR
       </Button>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        message="Usuário cadastrado com sucesso!"
-      />
     </form>
   );
 }
