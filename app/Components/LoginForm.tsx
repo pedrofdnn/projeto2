@@ -27,6 +27,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [info, setInfo] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -54,10 +55,6 @@ export default function LoginForm() {
     handleLogin();
   };
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
   //  função de fechamento automático do alerta
   const handleClose = (
     _event?: React.SyntheticEvent | Event,
@@ -66,7 +63,17 @@ export default function LoginForm() {
     if (reason === "") {
       return;
     }
-
+    setInfo(false);
+  };
+  
+  //  função para fechar a mensagem de cadastro
+  const handleCloseSuccess = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "") {
+      return;
+    }
     setOpen(false);
   };
 
@@ -81,7 +88,7 @@ export default function LoginForm() {
   // verifica se o usuário digitou ou não os dados.
   const handleLogin = () => {
     if (!name.trim()) {
-      handleClick();
+      handleClose();
       return;
     }
 
@@ -93,7 +100,10 @@ export default function LoginForm() {
         (user) => user.email.toLowerCase() === name.toLowerCase()
       );
       if (user) {
-        router.replace("/HomePage");
+        handleCloseSuccess(true);
+        // setTimeout(() => {
+        //   router.push("/HomePage?success=true");
+        // }, 2000);
       } else {
         const shouldCreateAccount = window.confirm(
           "Usuário não encontrado. Deseja criar uma conta?"
@@ -191,12 +201,30 @@ export default function LoginForm() {
           >
             LOGIN
           </Button>
+          {/* mensagem de sucesso */}
+          <Snackbar
+            open={open}
+            autoHideDuration={3000}
+            onClose={handleCloseSuccess}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert
+              onClose={handleCloseSuccess}
+              severity="success"
+              variant="filled"
+              sx={{ width: "100%", background: "#388e3c" }}
+            >
+              Cadastrado Realizado com Sucesso.
+            </Alert>
+          </Snackbar>
+
+          {/* alerta dos campos em branco */}
           <Snackbar
             sx={{
               display: "flex",
               justifyContent: "center",
             }}
-            open={open}
+            open={info}
             autoHideDuration={3000}
             onClose={handleClose}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
