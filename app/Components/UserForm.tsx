@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
@@ -9,12 +9,21 @@ import {
   Input,
   InputAdornment,
   InputLabel,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 
+interface UserData {
+  username: string;
+  email: string;
+  password: string;
+}
+
 export default function UserForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -33,7 +42,16 @@ export default function UserForm() {
   // Armazenar os dados no localStorage
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    localStorage.setItem("userData", JSON.stringify(userData));
+    const storedData = localStorage.getItem("userData");
+    let existingData = [];
+    if (storedData) {
+      existingData = JSON.parse(storedData);
+    }
+    existingData.push(userData);
+    localStorage.setItem("userData", JSON.stringify(existingData));
+    setOpenSnackbar(true);
+    setTimeout(() => setOpenSnackbar(false), 6000); // Fecha o Snackbar após 6 segundos
+    router.push("/?success=true");
   };
 
   //   função de ocultar a senha
@@ -44,8 +62,15 @@ export default function UserForm() {
     event.preventDefault();
   };
 
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
   return (
     <form className="flex flex-col p-28" onSubmit={handleSubmit}>
+      {showSuccessMessage && (
+        <div className="success-message">Usuário cadastrado com sucesso!</div>
+      )}
       <Box>
         <TextField
           sx={{ fontSize: 28, width: 310 }}
@@ -120,6 +145,12 @@ export default function UserForm() {
       >
         vOLTAR
       </Button>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message="Usuário cadastrado com sucesso!"
+      />
     </form>
   );
 }

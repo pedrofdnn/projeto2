@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -7,6 +8,8 @@ import {
   Input,
   InputAdornment,
   InputLabel,
+  Snackbar,
+  Stack,
   TextField,
 } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -24,6 +27,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   // Efeito para carregar o nome armazenado no localStorage quando a página é carregada
@@ -50,7 +54,22 @@ export default function LoginForm() {
     handleLogin();
   };
 
-  //   função de ocultar a senha
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "teste") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  // função de ocultar a senha
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -60,7 +79,8 @@ export default function LoginForm() {
   // verifica se o usuário digitou ou não os dados.
   const handleLogin = () => {
     if (!name.trim()) {
-      alert("Por favor, insira seu nome para fazer login.");
+      handleClick();
+
       return;
     }
 
@@ -160,6 +180,27 @@ export default function LoginForm() {
           >
             LOGIN
           </Button>
+
+          <Snackbar
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+            open={open}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert
+              onClose={handleClose}
+              severity="warning"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              Por favor, insira seu nome para fazer login
+            </Alert>
+          </Snackbar>
+
           <br />
           <Button
             className="button-login"
