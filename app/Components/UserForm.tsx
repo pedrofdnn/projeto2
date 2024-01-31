@@ -24,7 +24,8 @@ interface UserData {
 export default function UserForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showSuccessMessage] = useState(false);
-  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
+  const [infoError, setInfoError] = useState(false);
+  const [info, setInfo] = useState(false);
   const [open, setOpen] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
@@ -45,6 +46,12 @@ export default function UserForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Verificar se algum campo está vazio
+    if (!userData.username || !userData.email || !userData.password) {
+      setInfo(true);
+      return;
+    }
+
     // Verificar se o email já está cadastrado
     const storedData = localStorage.getItem("userData");
     if (storedData) {
@@ -53,42 +60,52 @@ export default function UserForm() {
         (user) => user.email.toLowerCase() === userData.email.toLowerCase()
       );
       if (emailExists) {
-        setOpenErrorSnackbar(true);
+        setInfoError(true);
         return;
       }
     }
+
     // Adicionar novo usuário ao localStorage
     let updatedData = storedData ? JSON.parse(storedData) : [];
     updatedData.push(userData);
     localStorage.setItem("userData", JSON.stringify(updatedData));
-    router.push("/?success=true");
-  };
-
-  // ativa a função de alerta
-  const handleClick = () => {
     setOpen(true);
+    setTimeout(() => {
+      router.push("/?success=true");
+    }, 2000);
   };
 
-  //  função de fechamento automático do alerta
-  const handleClose = (
+  //  função para fechar a mensagem de cadastro
+  const handleCloseSuccess = (
     _event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    if (reason === "clickaway") {
+    if (reason === "") {
       return;
     }
     setOpen(false);
   };
 
-  // função para fechar a mensagem de erro
-  const handleCloseErrorSnackbar = (
+  // função para fechar a mensagem de info
+  const infoClose = (
     _event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    if (reason === "clickaway") {
+    if (reason === "") {
       return;
     }
-    setOpenErrorSnackbar(false);
+    setInfo(false);
+  };
+
+  // função para fechar a mensagem de erro
+  const handleCloseError = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "") {
+      return;
+    }
+    setInfoError(false);
   };
 
   //   função de ocultar a senha
@@ -115,7 +132,6 @@ export default function UserForm() {
         name="username"
         value={userData.username}
         onChange={handleInputChange}
-        required
       />
 
       <br />
@@ -129,7 +145,6 @@ export default function UserForm() {
         name="email"
         value={userData.email}
         onChange={handleInputChange}
-        required
       />
       <br />
       <Box
@@ -167,7 +182,6 @@ export default function UserForm() {
         variant="contained"
         color="success"
         type="submit"
-        onClick={handleClick}
       >
         CADASTRAR
       </Button>
@@ -175,11 +189,11 @@ export default function UserForm() {
       <Snackbar
         open={open}
         autoHideDuration={3000}
-        onClose={handleClose}
+        onClose={handleCloseSuccess}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
-          onClose={handleClose}
+          onClose={handleCloseSuccess}
           severity="success"
           variant="filled"
           sx={{ width: "100%", background: "#388e3c" }}
@@ -187,15 +201,33 @@ export default function UserForm() {
           Cadastrado Realizado com Sucesso.
         </Alert>
       </Snackbar>
-      {/* mensagem de error */}
+
+      {/* mensagem para preencher */}
       <Snackbar
-        open={openErrorSnackbar}
+        open={info}
         autoHideDuration={3000}
-        onClose={handleCloseErrorSnackbar}
+        onClose={infoClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
-          onClose={handleCloseErrorSnackbar}
+          onClose={infoClose}
+          severity="info"
+          variant="filled"
+          sx={{ width: "100%", background: "#0288d1" }}
+        >
+          Preencha os dados de cadastro.
+        </Alert>
+      </Snackbar>
+
+      {/* mensagem de error */}
+      <Snackbar
+        open={infoError}
+        autoHideDuration={3000}
+        onClose={handleCloseError}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseError}
           severity="error"
           variant="filled"
           sx={{ width: "100%", background: "#f44336" }}
