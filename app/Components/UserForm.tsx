@@ -63,7 +63,7 @@ export default function UserForm() {
     localStorage.setItem("userData", JSON.stringify(updatedData));
     router.push("/?success=true");
   };
-  
+
   // ativa a função de alerta
   const handleClick = () => {
     setOpen(true);
