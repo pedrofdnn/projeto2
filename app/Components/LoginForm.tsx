@@ -131,7 +131,7 @@ export default function LoginForm() {
             <TextField
               sx={{ fontSize: 28, width: 305 }}
               id="input-with-sx"
-              label="Usuário"
+              label="Email"
               variant="standard"
               color="success"
               type="email"
@@ -206,7 +206,7 @@ export default function LoginForm() {
               variant="filled"
               sx={{ width: "100%" }}
             >
-              Por favor, insira seu nome para fazer login
+              Por favor, insira seu email para fazer login
             </Alert>
           </Snackbar>
 
