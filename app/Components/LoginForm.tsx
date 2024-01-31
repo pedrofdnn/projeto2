@@ -62,7 +62,7 @@ export default function LoginForm() {
     _event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    if (reason === "teste") {
+    if (reason === "") {
       return;
     }
 
@@ -76,19 +76,22 @@ export default function LoginForm() {
   ) => {
     event.preventDefault();
   };
+
   // verifica se o usuário digitou ou não os dados.
   const handleLogin = () => {
     if (!name.trim()) {
       handleClick();
-
       return;
     }
 
     // Verificar se o usuário existe no localStorage
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
-      const userData: UserData = JSON.parse(storedUserData);
-      if (userData.email.toLowerCase() === name.toLowerCase()) {
+      const existingData: UserData[] = JSON.parse(storedUserData);
+      const user = existingData.find(
+        (user) => user.email.toLowerCase() === name.toLowerCase()
+      );
+      if (user) {
         router.replace("/HomePage");
       } else {
         const shouldCreateAccount = window.confirm(
@@ -97,6 +100,13 @@ export default function LoginForm() {
         if (shouldCreateAccount) {
           router.push("/CreatUser");
         }
+      }
+    } else {
+      const shouldCreateAccount = window.confirm(
+        "Nenhum usuário cadastrado. Deseja criar uma conta?"
+      );
+      if (shouldCreateAccount) {
+        router.push("/CreatUser");
       }
     }
   };
@@ -180,7 +190,6 @@ export default function LoginForm() {
           >
             LOGIN
           </Button>
-
           <Snackbar
             sx={{
               display: "flex",

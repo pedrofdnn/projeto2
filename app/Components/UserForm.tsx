@@ -42,13 +42,25 @@ export default function UserForm() {
   // Armazenar os dados no localStorage
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Verificar se o email já está cadastrado
     const storedData = localStorage.getItem("userData");
-    let existingData = [];
     if (storedData) {
-      existingData = JSON.parse(storedData);
+      const existingData: UserData[] = JSON.parse(storedData);
+      const emailExists = existingData.some(
+        (user) => user.email.toLowerCase() === userData.email.toLowerCase()
+      );
+      if (emailExists) {
+        // Mostrar mensagem de erro ou alerta informando que o email já está cadastrado
+        return;
+      }
     }
-    existingData.push(userData);
-    localStorage.setItem("userData", JSON.stringify(existingData));
+
+    // Adicionar novo usuário ao localStorage
+    let updatedData = storedData ? JSON.parse(storedData) : [];
+    updatedData.push(userData);
+    localStorage.setItem("userData", JSON.stringify(updatedData));
+
     setOpenSnackbar(true);
     setTimeout(() => setOpenSnackbar(false), 6000); // Fecha o Snackbar após 6 segundos
     router.push("/?success=true");
