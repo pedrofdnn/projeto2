@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Alert,
@@ -14,6 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 interface UserData {
   username: string;
@@ -24,7 +24,8 @@ interface UserData {
 export default function UserForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showSuccessMessage] = useState(false);
-  const [infoError, setInfoError] = useState(false);
+  const [infoErrorUser, setInfoErrorUser] = useState(false);
+  const [infoErrorMail, setInfoErrorMail] = useState(false);
   const [info, setInfo] = useState(false);
   const [open, setOpen] = useState(false);
   const [userData, setUserData] = useState({
@@ -59,8 +60,23 @@ export default function UserForm() {
       const emailExists = existingData.some(
         (user) => user.email.toLowerCase() === userData.email.toLowerCase()
       );
-      if (emailExists) {
-        setInfoError(true);
+      const userExists = existingData.some(
+        (user) => user.username.toLowerCase() === userData.username.toLowerCase()
+      );
+      if (emailExists && userExists) {
+        // Ambos usuário e email já existem
+        setInfoErrorUser(true);
+        setInfoErrorMail(true);
+        return;
+      } else if (emailExists) {
+        // Apenas o email já existe
+        setInfoErrorUser(false);
+        setInfoErrorMail(true);
+        return;
+      } else if (userExists) {
+        // Apenas o usuário já existe
+        setInfoErrorUser(true);
+        setInfoErrorMail(false);
         return;
       }
     }
@@ -105,7 +121,8 @@ export default function UserForm() {
     if (reason === "") {
       return;
     }
-    setInfoError(false);
+    setInfoErrorUser(false);
+    setInfoErrorMail(false);
   };
 
   //   função de ocultar a senha
@@ -219,9 +236,26 @@ export default function UserForm() {
         </Alert>
       </Snackbar>
 
-      {/* mensagem de error */}
+      {/* mensagem de error usuário */}
       <Snackbar
-        open={infoError}
+        open={infoErrorUser}
+        autoHideDuration={3000}
+        onClose={handleCloseError}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseError}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%", background: "#f44336" }}
+        >
+          Usuário já cadastrado. Por favor, insira um usuário diferente.
+        </Alert>
+      </Snackbar>
+
+      {/* mensagem de error email */}
+      <Snackbar
+        open={infoErrorMail}
         autoHideDuration={3000}
         onClose={handleCloseError}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}

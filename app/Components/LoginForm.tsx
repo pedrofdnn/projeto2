@@ -30,6 +30,7 @@ export default function LoginForm() {
   const [info, setInfo] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  
 
   // Efeito para carregar o nome armazenado no localStorage quando a página é carregada
   useEffect(() => {
