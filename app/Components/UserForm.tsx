@@ -23,7 +23,6 @@ interface UserData {
 
 export default function UserForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showSuccessMessage] = useState(false);
   const [infoErrorUser, setInfoErrorUser] = useState(false);
   const [infoErrorMail, setInfoErrorMail] = useState(false);
   const [info, setInfo] = useState(false);
@@ -135,10 +134,6 @@ export default function UserForm() {
 
   return (
     <form className="flex flex-col p-28" onSubmit={handleSubmit}>
-      {showSuccessMessage && (
-        <div className="success-message">Usuário cadastrado com sucesso!</div>
-      )}
-
       <TextField
         sx={{ fontSize: 28, width: 310 }}
         id="input-name"
