@@ -1,5 +1,5 @@
 "use client";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { NumbersOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Alert,
   Box,
@@ -39,8 +39,15 @@ export default function UserForm() {
   // captura as informações do input.
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
+    const sanitizedValue = removeSpecialCharacters(value);
+    setUserData({ ...userData, [name]: sanitizedValue });
   };
+
+  // Remove caracteres especiais, números e espaços no início e no final, permitindo o caractere "@" para emails
+  const removeSpecialCharacters = (str: string): string => {
+    return str.trim().toLowerCase().replace(/[^\w\s@]/gi, '');
+  };
+
 
   // Armazenar os dados no localStorage
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -56,23 +63,38 @@ export default function UserForm() {
     const storedData = localStorage.getItem("userData");
     if (storedData) {
       const existingData: UserData[] = JSON.parse(storedData);
+      const sanitizedEmail = removeSpecialCharacters(userData.email.toLowerCase());
+      const sanitizedUsername = removeSpecialCharacters(userData.username.toLowerCase());
+
       const emailExists = existingData.some(
-        (user) => user.email.toLowerCase() === userData.email.toLowerCase()
+        (user) => {
+          const sanitizedExistingEmail = removeSpecialCharacters(user.email.toLowerCase());
+          console.log("Sanitized Existing Email:", sanitizedExistingEmail);
+          return sanitizedExistingEmail === sanitizedEmail;
+        }
       );
+
       const userExists = existingData.some(
-        (user) => user.username.toLowerCase() === userData.username.toLowerCase()
+        (user) => {
+          const sanitizedExistingUsername = removeSpecialCharacters(user.username.toLowerCase());
+          return sanitizedExistingUsername === sanitizedUsername;
+        }
       );
+
       if (emailExists && userExists) {
+
         // Ambos usuário e email já existem
         setInfoErrorUser(true);
         setInfoErrorMail(true);
         return;
       } else if (emailExists) {
+
         // Apenas o email já existe
         setInfoErrorUser(false);
         setInfoErrorMail(true);
         return;
       } else if (userExists) {
+
         // Apenas o usuário já existe
         setInfoErrorUser(true);
         setInfoErrorMail(false);
