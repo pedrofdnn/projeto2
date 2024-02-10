@@ -1,5 +1,5 @@
 "use client";
-import { NumbersOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Alert,
   Box,
@@ -45,7 +45,7 @@ export default function UserForm() {
 
   // Remove caracteres especiais, números e espaços no início e no final, permitindo o caractere "@" para emails
   const removeSpecialCharacters = (str: string): string => {
-    return str.trim().toLowerCase().replace(/[^\w\s@]/gi, '');
+    return str.trim().toLowerCase().replace(/[^\w\s@.]/gi, '');
   };
 
 

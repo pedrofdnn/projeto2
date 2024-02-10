@@ -9,7 +9,6 @@ import {
   InputAdornment,
   InputLabel,
   Snackbar,
-  Stack,
   TextField,
 } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -30,11 +29,11 @@ export default function LoginForm() {
   const [info, setInfo] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  
+
 
   // Efeito para carregar o nome armazenado no localStorage quando a página é carregada
   useEffect(() => {
-    const storedUserName = localStorage.getItem("user_name");
+    const storedUserName = localStorage.getItem("username");
     if (storedUserName) {
       setName(storedUserName);
     }
@@ -45,7 +44,7 @@ export default function LoginForm() {
     setName(e.target.value);
   };
 
-  // //ele checa a mudança de senha quando acontece.
+  //ele checa a mudança de senha quando acontece.
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -56,8 +55,8 @@ export default function LoginForm() {
     handleLogin();
   };
 
-  //  função de fechamento automático do alerta
-  const handleClose = (
+  //  função de para fechar a mensagem de Error.
+  const handleCloseError = (
     _event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
@@ -66,7 +65,7 @@ export default function LoginForm() {
     }
     setInfo(false);
   };
-  
+
   //  função para fechar a mensagem de cadastro
   const handleCloseSuccess = (
     _event?: React.SyntheticEvent | Event,
@@ -86,41 +85,31 @@ export default function LoginForm() {
     event.preventDefault();
   };
 
-  // verifica se o usuário digitou ou não os dados.
+  // Função para lidar com o login
   const handleLogin = () => {
-    if (!name.trim()) {
-      handleClose();
-      return;
-    }
-
     // Verificar se o usuário existe no localStorage
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       const existingData: UserData[] = JSON.parse(storedUserData);
+      console.log(storedUserData)
       const user = existingData.find(
-        (user) => user.email.toLowerCase() === name.toLowerCase()
+        (user) =>
+          user.email.toLowerCase() === name.toLowerCase() &&
+          user.password === password
       );
       if (user) {
-        handleCloseSuccess(true);
-        // setTimeout(() => {
-        //   router.push("/HomePage?success=true");
-        // }, 2000);
+        // Armazenar o nome de usuário no localStorage
+        localStorage.setItem("username", user.username);
+        handleCloseSuccess();
+        setTimeout(() => {
+          router.push("/HomePage?success=true");
+        }, 2000);
       } else {
-        const shouldCreateAccount = window.confirm(
-          "Usuário não encontrado. Deseja criar uma conta?"
-        );
-        if (shouldCreateAccount) {
-          router.push("/CreatUser");
-        }
-      }
-    } else {
-      const shouldCreateAccount = window.confirm(
-        "Nenhum usuário cadastrado. Deseja criar uma conta?"
-      );
-      if (shouldCreateAccount) {
-        router.push("/CreatUser");
+        setOpen(true);
+        return;
       }
     }
+  
   };
 
   return (
@@ -149,6 +138,7 @@ export default function LoginForm() {
               type="email"
               value={name}
               onChange={handleNameChange}
+
             />
           </Box>
         </div>
@@ -173,6 +163,7 @@ export default function LoginForm() {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={handlePasswordChange}
+
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -202,6 +193,7 @@ export default function LoginForm() {
           >
             LOGIN
           </Button>
+
           {/* mensagem de sucesso */}
           <Snackbar
             open={open}
@@ -213,13 +205,13 @@ export default function LoginForm() {
               onClose={handleCloseSuccess}
               severity="success"
               variant="filled"
-              sx={{ width: "100%", background: "#388e3c" }}
+              sx={{ width: "100%", background: "#4caf50" }}
             >
-              Cadastrado Realizado com Sucesso.
+              Seja Bem vindo `${localStorage.username}`.
             </Alert>
           </Snackbar>
 
-          {/* alerta dos campos em branco */}
+          {/* alerta dos dados incorretos. */}
           <Snackbar
             sx={{
               display: "flex",
@@ -227,14 +219,14 @@ export default function LoginForm() {
             }}
             open={info}
             autoHideDuration={3000}
-            onClose={handleClose}
+            onClose={handleCloseError}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
           >
             <Alert
-              onClose={handleClose}
+              onClose={handleCloseError}
               severity="warning"
               variant="filled"
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", background: "#ff9800" }}
             >
               Por favor, insira seu email para fazer login
             </Alert>
